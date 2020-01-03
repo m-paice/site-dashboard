@@ -10,9 +10,10 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
+// @material-ui/icons
+import { FormatSize } from "@material-ui/icons";
 // core components
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks";
-import RTLNavbarLinks from "../Navbars/RTLNavbarLinks";
 
 import styles from "../../assets/jss/material-dashboard-react/components/sidebarStyle";
 
@@ -24,53 +25,39 @@ export default function Sidebar(props) {
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1;
   }
-  const { color, logo, image, logoText, routes } = props;
+  const { color, image, logoText, routes } = props;
   const links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
-        let activePro = " ";
-        let listItemClasses;
-        if (prop.path === "/upgrade-to-pro") {
-          activePro = `${classes.activePro} `;
-          listItemClasses = classNames({
-            [` ${classes[color]}`]: true
-          });
-        } else {
-          listItemClasses = classNames({
-            [` ${classes[color]}`]: activeRoute(prop.layout + prop.path)
-          });
-        }
+        const listItemClasses = classNames({
+          [` ${classes[color]}`]: activeRoute(prop.path)
+        });
+
         const whiteFontClasses = classNames({
-          [` ${classes.whiteFont}`]: activeRoute(prop.layout + prop.path)
+          [` ${classes.whiteFont}`]: activeRoute(prop.path)
         });
         return (
           <NavLink
-            to={prop.layout + prop.path}
-            className={activePro + classes.item}
+            to={prop.path}
+            className={classes.item}
             activeClassName="active"
             key={key}
           >
             <ListItem button className={classes.itemLink + listItemClasses}>
               {typeof prop.icon === "string" ? (
                 <Icon
-                  className={classNames(classes.itemIcon, whiteFontClasses, {
-                    [classes.itemIconRTL]: props.rtlActive
-                  })}
+                  className={classNames(classes.itemIcon, whiteFontClasses)}
                 >
                   {prop.icon}
                 </Icon>
               ) : (
                 <prop.icon
-                  className={classNames(classes.itemIcon, whiteFontClasses, {
-                    [classes.itemIconRTL]: props.rtlActive
-                  })}
+                  className={classNames(classes.itemIcon, whiteFontClasses)}
                 />
               )}
               <ListItemText
-                primary={props.rtlActive ? prop.rtlName : prop.name}
-                className={classNames(classes.itemText, whiteFontClasses, {
-                  [classes.itemTextRTL]: props.rtlActive
-                })}
+                primary={prop.name}
+                className={classNames(classes.itemText, whiteFontClasses)}
                 disableTypography
               />
             </ListItem>
@@ -80,19 +67,14 @@ export default function Sidebar(props) {
     </List>
   );
   const brand = (
-    <div className={classes.logo}>
-      <a
-        href="https://www.creative-tim.com?ref=mdr-sidebar"
-        className={classNames(classes.logoLink, {
-          [classes.logoLinkRTL]: props.rtlActive
-        })}
-        target="_blank"
-      >
+    <div className={classes.logo} style={{ padding: "0 15px" }}>
+      <p className={classNames(classes.logoLink)}>
         <div className={classes.logoImage}>
-          <img src={logo} alt="logo" className={classes.img} />
+          <FormatSize />
+          {/* <img src={logo} alt="logo" className={classes.img} /> */}
         </div>
         {logoText}
-      </a>
+      </p>
     </div>
   );
   return (
@@ -100,12 +82,10 @@ export default function Sidebar(props) {
       <Hidden mdUp implementation="css">
         <Drawer
           variant="temporary"
-          anchor={props.rtlActive ? "left" : "right"}
+          anchor="right"
           open={props.open}
           classes={{
-            paper: classNames(classes.drawerPaper, {
-              [classes.drawerPaperRTL]: props.rtlActive
-            })
+            paper: classNames(classes.drawerPaper)
           }}
           onClose={props.handleDrawerToggle}
           ModalProps={{
@@ -114,7 +94,7 @@ export default function Sidebar(props) {
         >
           {brand}
           <div className={classes.sidebarWrapper}>
-            {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
+            <AdminNavbarLinks />
             {links}
           </div>
           {image !== undefined ? (
@@ -127,13 +107,11 @@ export default function Sidebar(props) {
       </Hidden>
       <Hidden smDown implementation="css">
         <Drawer
-          anchor={props.rtlActive ? "right" : "left"}
+          anchor="left"
           variant="permanent"
           open
           classes={{
-            paper: classNames(classes.drawerPaper, {
-              [classes.drawerPaperRTL]: props.rtlActive
-            })
+            paper: classNames(classes.drawerPaper)
           }}
         >
           {brand}
