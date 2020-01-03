@@ -33,12 +33,10 @@ export default function SnackbarContent(props) {
   }
   return (
     <Snack
-      message={() => (
-        <div>
-          {icon !== undefined ? <props.icon className={classes.icon} /> : null}
-          <span className={messageClasses}>{message}</span>
-        </div>
-      )}
+      message={<div>
+        {icon !== undefined ? <props.icon className={classes.icon} /> : null}
+        <span className={messageClasses}>{message}</span>
+      </div>}
       classes={{
         root: `${classes.root} ${classes[color]}`,
         message: classes.message,
