@@ -3,9 +3,10 @@ import {
   primaryColor,
   dangerColor,
   grayColor
-} from "assets/jss/material-dashboard-react.js";
-import tooltipStyle from "assets/jss/material-dashboard-react/tooltipStyle.js";
-import checkboxAdnRadioStyle from "assets/jss/material-dashboard-react/checkboxAdnRadioStyle.js";
+} from "../../material-dashboard-react";
+import tooltipStyle from "../tooltipStyle";
+import checkboxAdnRadioStyle from "../checkboxAdnRadioStyle";
+
 const tasksStyle = {
   ...tooltipStyle,
   ...checkboxAdnRadioStyle,
@@ -15,7 +16,7 @@ const tasksStyle = {
   },
   tableRow: {
     position: "relative",
-    borderBottom: "1px solid " + grayColor[5]
+    borderBottom: `1px solid ${grayColor[5]}`
   },
   tableActions: {
     display: "flex",

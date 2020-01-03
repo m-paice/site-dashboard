@@ -12,9 +12,12 @@ module.exports = {
       jsx: true
     }
   },
-  plugins: ["react"],
+  plugins: ["react", "import"],
   extends: [
+    "airbnb",
     "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
     "plugin:react/recommended",
     "plugin:prettier/recommended"
   ]

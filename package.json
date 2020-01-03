@@ -49,7 +49,9 @@
     "typescript": "3.5.3"
   },
   "devDependencies": {
+    "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "6.0.0",
+    "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-prettier": "3.1.0",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
