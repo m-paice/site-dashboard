@@ -28,8 +28,15 @@ import TableList from "./views/TableList/TableList";
 import Typography from "./views/Typography/Typography";
 import Icons from "./views/Icons/Icons";
 import NotificationsPage from "./views/Notifications/Notifications";
+import Login from "./views/Login";
 
 const dashboardRoutes = [
+  {
+    path: "/",
+    name: "Login",
+    icon: Dashboard,
+    component: Login
+  },
   {
     path: "/dashboard",
     name: "Dashboard",

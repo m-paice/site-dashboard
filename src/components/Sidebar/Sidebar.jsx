@@ -29,6 +29,7 @@ export default function Sidebar(props) {
   const links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
+        if (prop.path === "/") return;
         const listItemClasses = classNames({
           [` ${classes[color]}`]: activeRoute(prop.path)
         });

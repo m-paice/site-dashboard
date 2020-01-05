@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
@@ -19,13 +19,19 @@ import logo from "../assets/img/reactlogo.png";
 
 let ps;
 
-const switchRoutes = (
-  <Switch>
-    {routes.map((prop, key) => {
-      return <Route path={prop.path} component={prop.component} key={key} />;
-    })}
-  </Switch>
-);
+const SwitchRoutes = ({ setView }) => {
+  return (
+    <Switch>
+      {routes.map((prop, key) => {
+        if (prop.path === "/") setView("/");
+
+        return (
+          <Route exact path={prop.path} component={prop.component} key={key} />
+        );
+      })}
+    </Switch>
+  );
+};
 
 const useStyles = makeStyles(styles);
 
@@ -36,6 +42,8 @@ export default function Admin({ ...rest }) {
   const mainPanel = React.createRef();
   // states and functions
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const [viewLogin, setViewLogin] = useState("");
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -63,6 +71,13 @@ export default function Admin({ ...rest }) {
       window.removeEventListener("resize", resizeFunction);
     };
   }, [mainPanel]);
+
+  // Layout Login
+  if (window.location.pathname === viewLogin) {
+    return <div>View Login</div>;
+  }
+
+  // Layout Default
   return (
     <div className={classes.wrapper}>
       <Sidebar
@@ -83,7 +98,9 @@ export default function Admin({ ...rest }) {
         />
 
         <div className={classes.content}>
-          <div className={classes.container}>{switchRoutes}</div>
+          <div className={classes.container}>
+            {<SwitchRoutes setView={setViewLogin} />}
+          </div>
         </div>
 
         <Footer />
