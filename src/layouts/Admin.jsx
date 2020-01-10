@@ -74,7 +74,8 @@ export default function Admin({ ...rest }) {
 
   // Layout Login
   if (window.location.pathname === viewLogin) {
-    return <div>View Login</div>;
+    const Component = routes.find(item => item.path === "/");
+    return <Component.component />;
   }
 
   // Layout Default

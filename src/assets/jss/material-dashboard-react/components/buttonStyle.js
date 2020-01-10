@@ -294,6 +294,9 @@ const buttonStyle = {
         height: "17px"
       }
     }
+  },
+  fullWidth: {
+    width: "100%"
   }
 };
 
