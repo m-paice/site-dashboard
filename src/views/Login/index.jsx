@@ -1,5 +1,7 @@
 import React from "react";
 
+import { useDispatch } from "react-redux";
+
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // components
@@ -11,6 +13,9 @@ import CardBody from "../../components/Card/CardBody";
 import CardFooter from "../../components/Card/CardFooter";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import Button from "../../components/CustomButtons/Button";
+
+// actions auth
+import { actionsAuth } from "../../store/ducks/auth";
 
 import BgLogin from "../../assets/img/bg-login.png";
 
@@ -37,6 +42,10 @@ const useStyles = makeStyles(styles);
 
 const Login = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const handleSubmit = () =>
+    dispatch(actionsAuth.authLoginInit("paice", "123456"));
 
   return (
     <div
@@ -90,7 +99,7 @@ const Login = () => {
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="danger" fullWidth>
+              <Button color="danger" fullWidth onClick={handleSubmit}>
                 Login
               </Button>
               <Button color="danger" fullWidth>
