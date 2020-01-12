@@ -1,6 +1,8 @@
 import React from "react";
 
+import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
+import { reduxForm, Form, Field } from "redux-form";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -40,12 +42,12 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-const Login = () => {
+const Login = ({ handleSubmit }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const handleSubmit = () =>
-    dispatch(actionsAuth.authLoginInit("paiasdeasder22", "123456"));
+  const handleSave = ({ username, password }) =>
+    dispatch(actionsAuth.authLoginInit(username, password));
 
   return (
     <div
@@ -74,32 +76,41 @@ const Login = () => {
             </CardHeader>
             <CardBody>
               <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                  <CustomInput
-                    labelText="Username"
-                    id="username"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={12}>
-                  <CustomInput
-                    labelText="Password"
-                    id="password"
-                    ty
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      type: "password"
-                    }}
-                  />
-                </GridItem>
+                <Form
+                  style={{ width: "100%" }}
+                  onSubmit={handleSubmit(values => handleSave(values))}
+                >
+                  <GridItem xs={12} sm={12} md={12}>
+                    <Field
+                      name="username"
+                      component={CustomInput}
+                      labelText="Username"
+                      id="username"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={12}>
+                    <Field
+                      name="password"
+                      component={CustomInput}
+                      labelText="Password"
+                      id="password"
+                      ty
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      inputProps={{
+                        type: "password"
+                      }}
+                    />
+                  </GridItem>
+                </Form>
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="danger" fullWidth onClick={handleSubmit}>
+              <Button color="danger" fullWidth>
                 Login
               </Button>
               <Button color="danger" fullWidth>
@@ -113,6 +124,11 @@ const Login = () => {
   );
 };
 
-Login.propTypes = {};
+Login.propTypes = {
+  // func
+  handleSubmit: PropTypes.func
+};
 
-export default Login;
+export default reduxForm({
+  form: "auth-login"
+})(Login);
