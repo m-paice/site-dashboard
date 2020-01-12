@@ -1,17 +1,18 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { put, takeLatest, call } from "redux-saga/effects";
+
+import { create } from "../../services/api";
 
 import { typesAuth } from "../ducks/auth";
 
 function* login({ payload: { username, password } }) {
   try {
+    const response = yield call(create, "/auth", { username, password });
+
     yield put({
       type: typesAuth.AUTH_LOGIN_SUCCESS,
       payload: {
-        token: "KB23JK4B23M,3242M3,4N3M2,32M3232423",
-        user: {
-          username,
-          password
-        }
+        token: response.data.token,
+        user: response.data.user
       }
     });
   } catch (e) {

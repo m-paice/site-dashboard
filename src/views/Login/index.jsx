@@ -45,7 +45,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = () =>
-    dispatch(actionsAuth.authLoginInit("paice", "123456"));
+    dispatch(actionsAuth.authLoginInit("paiasdeasder22", "123456"));
 
   return (
     <div
